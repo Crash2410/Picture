@@ -1,5 +1,6 @@
 import modals from './modules/modals';
 import {showModalByTime, showModalByScroll} from './modules/modals';
+import forms from './modules/forms';
 
 window.addEventListener('DOMContentLoaded', () => {
     'use strict';
@@ -10,4 +11,6 @@ window.addEventListener('DOMContentLoaded', () => {
     
     showModalByScroll('.fixed-gift');
     showModalByTime('.popup-consultation', 60000);
+
+    forms();
 });
