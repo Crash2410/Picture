@@ -1,6 +1,7 @@
 import modals from './modules/modals';
 import {showModalByTime, showModalByScroll} from './modules/modals';
 import forms from './modules/forms';
+import slider from './modules/sliders';
 
 window.addEventListener('DOMContentLoaded', () => {
     'use strict';
@@ -13,4 +14,16 @@ window.addEventListener('DOMContentLoaded', () => {
     showModalByTime('.popup-consultation', 60000);
 
     forms();
+    slider({
+        slidesSelector: '.main-slider-item', 
+        time: 5000,
+        dir: 'vertical'
+    });
+
+    slider({
+        slidesSelector: '.feedback-slider-item',
+        nextArrow: '.main-next-btn',
+        time: 5000,
+        prevArrow: '.main-prev-btn'
+    });
 });

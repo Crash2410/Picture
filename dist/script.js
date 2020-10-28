@@ -3960,6 +3960,8 @@ module.exports = g;
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_modals__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/modals */ "./src/js/modules/modals.js");
 /* harmony import */ var _modules_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/forms */ "./src/js/modules/forms.js");
+/* harmony import */ var _modules_sliders__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/sliders */ "./src/js/modules/sliders.js");
+
 
 
 
@@ -3972,6 +3974,17 @@ window.addEventListener('DOMContentLoaded', function () {
   Object(_modules_modals__WEBPACK_IMPORTED_MODULE_0__["showModalByScroll"])('.fixed-gift');
   Object(_modules_modals__WEBPACK_IMPORTED_MODULE_0__["showModalByTime"])('.popup-consultation', 60000);
   Object(_modules_forms__WEBPACK_IMPORTED_MODULE_1__["default"])();
+  Object(_modules_sliders__WEBPACK_IMPORTED_MODULE_2__["default"])({
+    slidesSelector: '.main-slider-item',
+    time: 5000,
+    dir: 'vertical'
+  });
+  Object(_modules_sliders__WEBPACK_IMPORTED_MODULE_2__["default"])({
+    slidesSelector: '.feedback-slider-item',
+    nextArrow: '.main-next-btn',
+    time: 5000,
+    prevArrow: '.main-prev-btn'
+  });
 });
 
 /***/ }),
@@ -4230,6 +4243,93 @@ function showModalByScroll(selector) {
 window.addEventListener('scroll', showModalByScroll);
 /* harmony default export */ __webpack_exports__["default"] = (modals);
 
+
+/***/ }),
+
+/***/ "./src/js/modules/sliders.js":
+/*!***********************************!*\
+  !*** ./src/js/modules/sliders.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var slider = function slider(_ref) {
+  var slidesSelector = _ref.slidesSelector,
+      dir = _ref.dir,
+      prevArrow = _ref.prevArrow,
+      nextArrow = _ref.nextArrow,
+      time = _ref.time;
+  var slides = document.querySelectorAll(slidesSelector);
+  var slideIndex = 1,
+      paused = false;
+  showSlides(slideIndex);
+
+  function showSlides(n) {
+    if (n > slides.length) {
+      slideIndex = 1;
+    }
+
+    if (n < 1) {
+      slideIndex = slides.length;
+    }
+
+    slides.forEach(function (item) {
+      item.classList.add('animated');
+      item.style.display = 'none';
+    });
+    slides[slideIndex - 1].style.display = "block";
+  }
+
+  function plusSlides(n) {
+    showSlides(slideIndex += n);
+  }
+
+  try {
+    var prev = document.querySelector(prevArrow),
+        next = document.querySelector(nextArrow);
+    next.addEventListener('click', function () {
+      plusSlides(1);
+      slides[slideIndex - 1].classList.remove('slideInRight');
+      slides[slideIndex - 1].classList.add('slideInLeft');
+    });
+    prev.addEventListener('click', function () {
+      plusSlides(-1);
+      slides[slideIndex - 1].classList.remove('slideInLeft');
+      slides[slideIndex - 1].classList.add('slideInRight');
+    });
+  } catch (error) {}
+
+  function autoPlaySliders(time) {
+    if (dir == 'vertical') {
+      paused = setInterval(function () {
+        plusSlides(1);
+        slides[slideIndex - 1].classList.add('fadeInUp');
+      }, time);
+    } else {
+      paused = setInterval(function () {
+        plusSlides(1);
+        slides[slideIndex - 1].classList.remove('slideInRight');
+        slides[slideIndex - 1].classList.add('slideInLeft');
+      }, time);
+    }
+  }
+
+  autoPlaySliders(time);
+  slides[0].parentNode.addEventListener('mouseenter', function () {
+    clearInterval(paused);
+  });
+  slides[0].parentNode.addEventListener('mouseleave', function () {
+    autoPlaySliders(time);
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (slider);
 
 /***/ })
 
