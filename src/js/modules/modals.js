@@ -93,10 +93,10 @@ function calcScroll() {
 }
 
 function showModalByScroll(selector) {
-    let scrollHeight = Math.max(document.documentElement.scrollHeight,document.body.scrollHeight);
-
     window.addEventListener('scroll', () => {
-        if (!btnPressed && window.pageYOffset + document.documentElement.clientHeight >= scrollHeight) {
+        let scrollHeight = Math.max(document.documentElement.scrollHeight,document.body.scrollHeight);
+
+        if (!btnPressed && window.pageYOffset + document.documentElement.clientHeight >= scrollHeight - 1) {
             document.querySelector(selector).click();
         }        
     });
