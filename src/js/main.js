@@ -2,6 +2,8 @@ import modals from './modules/modals';
 import {showModalByTime, showModalByScroll} from './modules/modals';
 import forms from './modules/forms';
 import slider from './modules/sliders';
+import mask from './modules/mask';
+import checkTextInputs from './modules/checkTextInputs';
 
 window.addEventListener('DOMContentLoaded', () => {
     'use strict';
@@ -26,4 +28,9 @@ window.addEventListener('DOMContentLoaded', () => {
         time: 5000,
         prevArrow: '.main-prev-btn'
     });
+
+    mask('[name="phone"]');
+
+    checkTextInputs('[name="name"]');
+    checkTextInputs('[name="message"]');
 });
