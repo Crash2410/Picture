@@ -6,9 +6,14 @@ import mask from './modules/mask';
 import checkTextInputs from './modules/checkTextInputs';
 import showMoreStyles from './modules/showMoreStyles';
 import calc from './modules/calc';
+import changeModalState from './modules/changeModalState';
+import filter from './modules/filter';
 
 window.addEventListener('DOMContentLoaded', () => {
     'use strict';
+
+    let modalStates = {};
+    changeModalState(modalStates);
 
     modals('.button-design', '.popup-design', '.popup-design .popup-close');
     modals('.button-consultation', '.popup-consultation', '.popup-consultation .popup-close');
@@ -17,7 +22,7 @@ window.addEventListener('DOMContentLoaded', () => {
     showModalByScroll('.fixed-gift');
     showModalByTime('.popup-consultation', 60000);
 
-    forms();
+    forms(modalStates);
     slider({
         slidesSelector: '.main-slider-item', 
         time: 5000,
@@ -38,4 +43,6 @@ window.addEventListener('DOMContentLoaded', () => {
     showMoreStyles('.button-styles', '#styles .row');
 
     calc('#size', "#material", '#options', '.promocode', '.calc-price');
+
+    filter();
 });

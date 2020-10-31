@@ -1,6 +1,8 @@
-import {postData} from './../services/requests';
+import {
+    postData
+} from './../services/requests';
 
-const forms = () => {
+const forms = (state) => {
     const form = document.querySelectorAll('form'),
         inputs = document.querySelectorAll('input'),
         upload = document.querySelectorAll("[name='upload']");
@@ -31,14 +33,14 @@ const forms = () => {
             item.previousElementSibling.textContent = 'Файл не выбран';
         });
     };
-    
+
     upload.forEach(item => {
         item.addEventListener('input', () => {
             console.log(item.files[0]);
             let dots;
-            const arr =   item.files[0].name.split('.');
+            const arr = item.files[0].name.split('.');
             arr[0].length > 5 ? dots = "..." : dots = '.';
-            const name = arr[0].substring(0,6) + dots + arr[1];
+            const name = arr[0].substring(0, 6) + dots + arr[1];
 
             item.previousElementSibling.textContent = name;
         });
@@ -68,8 +70,16 @@ const forms = () => {
             statusMessage.appendChild(textMessage);
 
             const formData = new FormData(item);
+            
             let api;
-            item.closest('.popup-design') || item.classList.contains('calc_form') ? api = path.designer : api = path.question;
+            if (item.closest('.popup-design') || item.classList.contains('calc_form')) {
+                for (let key in state) {
+                    formData.append(key, state[key]);
+                }
+                api = path.designer;
+            } else {
+                api = path.question;
+            }
             console.log(api);
 
             postData(api, formData)
